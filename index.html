@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inclusive Smart Search - Next Gen</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Animated Background -->
+<div class="animated-bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="grid-overlay"></div>
+</div>
+
+<header>
+  <div class="logo-container">
+    <div class="search-icon-animated">🔍</div>
+    <h2>Inclusive Search</h2>
+  </div>
+  <button onclick="toggleTheme()" id="themeBtn" class="theme-toggle">
+    <span class="theme-icon">🌗</span>
+  </button>
+</header>
+
+<main>
+
+  <div class="hero-section">
+    <div class="badge">✨ Tawfeeq Search Engine</div>
+    <h1 class="glitch" data-text="Inclusive Smart Search">Inclusive Smart Search</h1>
+    <p class="tagline">
+      <span class="tag-item">Easy for Kids</span>
+      <span class="separator">•</span>
+      <span class="tag-item">Adults</span>
+      <span class="separator">•</span>
+      <span class="tag-item">Seniors</span>
+    </p>
+  </div>
+
+
+  <!-- Search + Result Area -->
+  <div class="search-area" id="searchArea">
+
+    <div class="search-box">
+      <div class="search-icon">🔍</div>
+      <input type="text" id="searchInput"
+        placeholder="Search anything...">
+      <button onclick="executeSearch()" class="search-btn">
+        <span>Search</span>
+        <div class="btn-glow"></div>
+      </button>
+    </div>
+
+    <!-- Image Box (shows above results) -->
+    <div id="imageBox" class="hidden">
+      <div class="upload-zone">
+        <label class="upload">
+          <div class="upload-icon">📷</div>
+          <span class="upload-text">Click or Drag to Upload</span>
+          <span class="upload-hint">Supports JPG, PNG, WebP</span>
+          <input type="file" id="imageInput" accept="image/*" hidden>
+        </label>
+      </div>
+
+      <div id="imagePreviewContainer" class="hidden">
+        <div class="preview-wrapper">
+          <img id="preview" alt="Preview">
+          <button onclick="searchImage()" class="search-image-btn">
+            🔍 Search Similar Images
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Voice Box (shows above results) -->
+    <div id="voiceBox" class="hidden">
+      <div class="voice-container">
+        <button class="mic-button" onclick="voiceSearch()" id="micBtn">
+          <div class="mic-icon">🎤</div>
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring delayed"></div>
+        </button>
+        <p id="voiceText" class="voice-status">Tap microphone and speak</p>
+        <div class="sound-waves hidden" id="soundWaves">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results"></div>
+
+  </div>
+
+
+  <!-- Mode Switcher (appears after search) -->
+  <div id="modeSwitcher" class="hidden">
+    <p class="mode-label">Switch Search Mode</p>
+    <div class="mode-pills">
+      <button onclick="activateMode('text')" data-mode="text" class="mode-pill active">
+        <div class="pill-bg"></div>
+        <span class="mode-icon">🔤</span>
+        <span class="mode-name">Text</span>
+      </button>
+      <button onclick="activateMode('image')" data-mode="image" class="mode-pill">
+        <div class="pill-bg"></div>
+        <span class="mode-icon">🖼️</span>
+        <span class="mode-name">Image</span>
+      </button>
+      <button onclick="activateMode('voice')" data-mode="voice" class="mode-pill">
+        <div class="pill-bg"></div>
+        <span class="mode-icon">🎤</span>
+        <span class="mode-name">Voice</span>
+      </button>
+    </div>
+  </div>
+
+
+  <!-- Feature Cards -->
+  <div id="cardSection">
+    <div class="feature-cards">
+
+      <!-- Text -->
+      <div class="feature-card" data-tilt>
+        <div class="card-glow"></div>
+        <div class="icon-wrapper">
+          <div class="icon">🔤</div>
+          <div class="icon-ring"></div>
+        </div>
+        <h3>Text Search</h3>
+        <p>Lightning-fast keyword search with instant results from across the web.</p>
+        <button onclick="activateMode('text')" class="card-btn">
+          <span>Launch Text Search</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+
+      <!-- Image -->
+      <div class="feature-card" data-tilt>
+        <div class="card-glow"></div>
+        <div class="icon-wrapper">
+          <div class="icon">🖼️</div>
+          <div class="icon-ring"></div>
+        </div>
+        <h3>Image Search</h3>
+        <p>Upload or drag images to discover visually similar content instantly.</p>
+        <button onclick="activateMode('image')" class="card-btn">
+          <span>Launch Image Search</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+
+      <!-- Voice -->
+      <div class="feature-card" data-tilt>
+        <div class="card-glow"></div>
+        <div class="icon-wrapper">
+          <div class="icon">🎤</div>
+          <div class="icon-ring"></div>
+        </div>
+        <h3>Voice Search</h3>
+        <p>Speak naturally and search hands-free with advanced voice recognition.</p>
+        <button onclick="activateMode('voice')" class="card-btn">
+          <span>Launch Voice Search</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Loader -->
+  <div class="loader-container" id="loader">
+    <div class="loader">
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+      <div class="loader-ring"></div>
+    </div>
+    <p class="loader-text">Searching the universe...</p>
+  </div>
+
+
+</main>
+
+<!-- Particles -->
+<div class="particles">
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
